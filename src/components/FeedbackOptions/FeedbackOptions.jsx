@@ -1,17 +1,22 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import shortid from 'shortid';
 
-const FeedbackOptions = ({ onGoodPlus, onNeutralPlus, onBadPlus }) => (
+const FeedbackOptions = ({ options, onLeaveFeedback }) => (
   <div>
-    <button type="button" onClick={onGoodPlus}>
-      Good
-    </button>
-    <button type="button" onClick={onNeutralPlus}>
-      Neutral
-    </button>
-    <button type="button" onClick={onBadPlus}>
-      Bad
-    </button>
+    {Object.keys(options).map(option => (
+      <button
+        key={shortid.generate()}
+        name={option}
+        type="button"
+        onClick={onLeaveFeedback}
+      ></button>
+    ))}
   </div>
 );
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.object.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+};
 
 export default FeedbackOptions;
