@@ -11,12 +11,12 @@ class App extends Component {
     bad: 0,
   };
 
-  onButtonClick = e => {
+  onLeaveFeedback = e => {
     this.setState(prevState => ({
-      [e.target.name]: prevState[e.target.name]  + 1,
+      [e.target.name]: prevState[e.target.name] + 1,
     }));
   };
-  
+
   countTotalFeedback = () => {
     return Object.values(this.state).reduce((accum, item) => accum + item, 0);
   };
@@ -37,26 +37,25 @@ class App extends Component {
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={this.state}
-            onLeaveFeedback={this.onButtonClick}
+            onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
         <Section title="Statistics">
-          {
-            total ?
-              <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positiveFeedback={positiveFeedback}
-              />
-              :
-              <Notification message="There is no feedback"></Notification>
-          }
+          {total ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positiveFeedback={positiveFeedback}
+            />
+          ) : (
+            <Notification message="There is no feedback"></Notification>
+          )}
         </Section>
       </div>
     );
-  };
+  }
 };
 
 export default App;
